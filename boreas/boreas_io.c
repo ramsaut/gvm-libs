@@ -1,4 +1,4 @@
-/* Copyright (C) 2020 Greenbone Networks GmbH
+/* Copyright (C) 2020-2021 Greenbone Networks GmbH
  *
  * SPDX-License-Identifier: GPL-2.0-or-later
  *
@@ -198,17 +198,18 @@ get_host_from_queue (kb_t alive_hosts_kb, gboolean *alive_deteciton_finished)
       else
         {
           host = gvm_host_from_str (host_str);
-          g_free (host_str);
 
           if (!host)
             {
               g_warning ("%s: Could not transform IP string \"%s\" into "
                          "internal representation.",
                          __func__, host_str);
+              g_free (host_str);
               return NULL;
             }
           else
             {
+              g_free (host_str);
               return host;
             }
         }

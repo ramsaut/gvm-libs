@@ -4,19 +4,40 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
-## [20.8.1] (unreleased)
+## [20.8.2] (unreleased)
+
+### Added
+### Changed
+Use a char pointer instead of an zero-lenght array as kb_redis struct member. [443](https://github.com/greenbone/gvm-libs/pull/443)
+
+### Fixed
+* Fixing [#434](https://github.com/greenbone/gvm-libs/pull/434) by removing the extra parentheses in `base/networking.c` [#437](https://github.com/greenbone/gvm-libs/pull/437)
+* Adding initialization to struct scanner in `boreas/util_tests.c`. [#438](https://github.com/greenbone/gvm-libs/pull/438)
+
+### Removed
+
+[20.8.2]: https://github.com/greenbone/gvm-libs/compare/v20.8.1...gvm-libs-20.08
+
+## [20.8.1] (2021-02-01)
 
 ### Added
 - Add function to get duplicated hosts from the hosts list. [#387](https://github.com/greenbone/gvm-libs/pull/387)
+- Add file access tests using effective UID/GID [#422](https://github.com/greenbone/gvm-libs/pull/422)
 
 ### Changed
 - Reduce ping timeout when using test_alive_hosts_only feature. [#400](https://github.com/greenbone/gvm-libs/pull/400)
+- Retry if response via tls1.3 is still not received. [#404](https://github.com/greenbone/gvm-libs/pull/404)
 
 ### Fixed
 - Fix port list for tcp pings when using test_alive_hosts_only feature. [#392](https://github.com/greenbone/gvm-libs/pull/392)
 - Set source address correctly and do not try to send ARP to unreachable destination. [#401](https://github.com/greenbone/gvm-libs/pull/401)
+- Increase minimum gpgme version [#405](https://github.com/greenbone/gvm-libs/pull/405)
+- Always NULL check ifaddrs->ifa_addr [#416](https://github.com/greenbone/gvm-libs/pull/416)
+- Correct g_hash_table_remove arg [#419](https://github.com/greenbone/gvm-libs/pull/419)
+- Accept underscore as valid char in hostname strings [#430](https://github.com/greenbone/gvm-libs/pull/430)
+- Add throttle for pinging with test_alive_hosts_only feature when socket buffer is full. [#429](https://github.com/greenbone/gvm-libs/pull/429)
 
-[20.8.1]: https://github.com/greenbone/gvm-libs/compare/v20.8.0...gvm-libs-20.08
+[20.8.1]: https://github.com/greenbone/gvm-libs/compare/v20.8.0...v20.8.1
 
 ## [20.8.0] (2020-08-12)
 

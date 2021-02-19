@@ -1,4 +1,4 @@
-/* Copyright (C) 2020 Greenbone Networks GmbH
+/* Copyright (C) 2020-2021 Greenbone Networks GmbH
  *
  * SPDX-License-Identifier: GPL-2.0-or-later
  *
@@ -94,6 +94,8 @@ scan (alive_test_t alive_test)
       g_debug ("%s: ICMP Ping", __func__);
       g_hash_table_foreach (scanner.hosts_data->targethosts, send_icmp,
                             &scanner);
+      wait_until_so_sndbuf_empty (scanner.icmpv4soc, 10);
+      wait_until_so_sndbuf_empty (scanner.icmpv6soc, 10);
       usleep (500000);
     }
   if (alive_test & ALIVE_TEST_TCP_SYN_SERVICE)
@@ -102,6 +104,8 @@ scan (alive_test_t alive_test)
       scanner.tcp_flag = TH_SYN; /* SYN */
       g_hash_table_foreach (scanner.hosts_data->targethosts, send_tcp,
                             &scanner);
+      wait_until_so_sndbuf_empty (scanner.tcpv4soc, 10);
+      wait_until_so_sndbuf_empty (scanner.tcpv6soc, 10);
       usleep (500000);
     }
   if (alive_test & ALIVE_TEST_TCP_ACK_SERVICE)
@@ -110,6 +114,8 @@ scan (alive_test_t alive_test)
       scanner.tcp_flag = TH_ACK; /* ACK */
       g_hash_table_foreach (scanner.hosts_data->targethosts, send_tcp,
                             &scanner);
+      wait_until_so_sndbuf_empty (scanner.tcpv4soc, 10);
+      wait_until_so_sndbuf_empty (scanner.tcpv6soc, 10);
       usleep (500000);
     }
   if (alive_test & ALIVE_TEST_ARP)
@@ -117,6 +123,8 @@ scan (alive_test_t alive_test)
       g_debug ("%s: ARP Ping", __func__);
       g_hash_table_foreach (scanner.hosts_data->targethosts, send_arp,
                             &scanner);
+      wait_until_so_sndbuf_empty (scanner.arpv4soc, 10);
+      wait_until_so_sndbuf_empty (scanner.arpv6soc, 10);
     }
   if (alive_test & ALIVE_TEST_CONSIDER_ALIVE)
     {
@@ -134,7 +142,7 @@ scan (alive_test_t alive_test)
     "%s: all ping packets have been sent, wait a bit for rest of replies.",
     __func__);
 
-  /* If all targets are already indentified as alive we do not need to wait for
+  /* If all targets are already identified as alive we do not need to wait for
    * replies anymore.*/
   if (number_of_targets
       != (int) g_hash_table_size (scanner.hosts_data->alivehosts))

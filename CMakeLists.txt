@@ -1,4 +1,4 @@
-# Copyright (C) 2011-2019 Greenbone Networks GmbH
+# Copyright (C) 2011-2021 Greenbone Networks GmbH
 #
 # SPDX-License-Identifier: GPL-2.0-or-later
 #
@@ -21,7 +21,7 @@ cmake_minimum_required(VERSION 3.0)
 message ("-- Configuring the Greenbone Vulnerability Management Libraries...")
 
 project (gvm-libs
-  VERSION 20.8.0
+  VERSION 20.8.2
   LANGUAGES C)
 
 if (POLICY CMP0005)
